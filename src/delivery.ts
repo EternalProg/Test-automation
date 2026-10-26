@@ -12,5 +12,5 @@ export function calcDeliveryFee(
     throw new Error('INVALID_DELIVERY_INPUT');
   }
 
-  return 0;
+  return orderTotal >= 1000 ? 0 : 50;
 }
