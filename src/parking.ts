@@ -11,5 +11,6 @@ export function calcParkingFee(
     throw new Error('INVALID_DURATION');
   }
 
-  return 0;
+  if (minutes <= 15) return 0;
+  return 30;
 }
