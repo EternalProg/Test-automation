@@ -6,3 +6,9 @@ describe('calcParkingFee: перевірка тривалості', () => {
     expect(() => calcParkingFee(minutes)).toThrow('INVALID_DURATION');
   });
 });
+
+describe('calcParkingFee: безкоштовний час', () => {
+  it.each([0, 1, 15])('не стягує плату за %i хвилин', (minutes) => {
+    expect(calcParkingFee(minutes)).toBe(0);
+  });
+});
