@@ -16,3 +16,16 @@ describe('calcDeliveryFee: перевірка вхідних даних', () => 
     },
   );
 });
+
+describe('calcDeliveryFee: безкоштовний поріг замовлення', () => {
+  it.each([
+    { orderTotal: 999, expected: 50 },
+    { orderTotal: 1000, expected: 0 },
+    { orderTotal: 1001, expected: 0 },
+  ])(
+    'замовлення на $orderTotal грн має доставку $expected грн',
+    ({ orderTotal, expected }) => {
+      expect(calcDeliveryFee(orderTotal, 5)).toBeCloseTo(expected, 2);
+    },
+  );
+});
