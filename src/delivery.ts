@@ -12,5 +12,6 @@ export function calcDeliveryFee(
     throw new Error('INVALID_DELIVERY_INPUT');
   }
 
-  return orderTotal >= 1000 ? 0 : 50;
+  if (orderTotal >= 1000) return 0;
+  return weightKg > 5 ? 60 : 50;
 }
