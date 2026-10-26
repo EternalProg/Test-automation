@@ -15,7 +15,7 @@ function calcWeightFee(weightKg: number): number {
 export function calcDeliveryFee(
   orderTotal: number,
   weightKg: number,
-  _isExpress = false,
+  isExpress = false,
 ): number {
   if (
     !Number.isFinite(orderTotal) ||
@@ -27,5 +27,6 @@ export function calcDeliveryFee(
   }
 
   if (orderTotal >= FREE_DELIVERY_FROM) return 0;
-  return calcWeightFee(weightKg);
+  const standardFee = calcWeightFee(weightKg);
+  return isExpress ? standardFee * 2 : standardFee;
 }
