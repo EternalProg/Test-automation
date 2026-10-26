@@ -12,3 +12,9 @@ describe('calcParkingFee: безкоштовний час', () => {
     expect(calcParkingFee(minutes)).toBe(0);
   });
 });
+
+describe('calcParkingFee: перша година', () => {
+  it.each([16, 30, 60])('стягує 30 грн за %i хвилин', (minutes) => {
+    expect(calcParkingFee(minutes)).toBe(30);
+  });
+});
