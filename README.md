@@ -31,7 +31,6 @@ HTML-звіт покриття створюється у `coverage/index.html`.
 - `vitest.config.ts` — запуск тестів та пороги покриття.
 - `tsconfig.json` — сувора перевірка типів TypeScript.
 - `eslint.config.mjs`, `.prettierrc` — статичний аналіз і форматування.
-- `docs/superpowers/specs/lab3-tdd-design.md` — зафіксовані вимоги до реалізації.
 
 Звіт і матеріали для виступу зберігаються локально в `report/` та не входять
 до Git. Робоча гілка — `lab3`.
