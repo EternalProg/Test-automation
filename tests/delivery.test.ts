@@ -42,3 +42,13 @@ describe('calcDeliveryFee: межа базової ваги', () => {
     },
   );
 });
+
+describe('calcDeliveryFee: кожен розпочатий кілограм', () => {
+  it.each([
+    { weightKg: 5.99, expected: 60 },
+    { weightKg: 6, expected: 60 },
+    { weightKg: 6.01, expected: 70 },
+  ])('вага $weightKg кг має тариф $expected грн', ({ weightKg, expected }) => {
+    expect(calcDeliveryFee(999, weightKg)).toBeCloseTo(expected, 2);
+  });
+});
