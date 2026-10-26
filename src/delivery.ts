@@ -2,10 +2,14 @@ const FREE_DELIVERY_FROM = 1000;
 const BASE_WEIGHT_LIMIT = 5;
 const BASE_DELIVERY_FEE = 50;
 const ADDITIONAL_KG_FEE = 10;
+const MAX_STANDARD_FEE = 300;
 
 function calcWeightFee(weightKg: number): number {
   const extraKg = Math.ceil(Math.max(0, weightKg - BASE_WEIGHT_LIMIT));
-  return BASE_DELIVERY_FEE + extraKg * ADDITIONAL_KG_FEE;
+  return Math.min(
+    BASE_DELIVERY_FEE + extraKg * ADDITIONAL_KG_FEE,
+    MAX_STANDARD_FEE,
+  );
 }
 
 export function calcDeliveryFee(
