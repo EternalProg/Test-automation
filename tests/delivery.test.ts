@@ -29,3 +29,16 @@ describe('calcDeliveryFee: безкоштовний поріг замовлен�
     },
   );
 });
+
+describe('calcDeliveryFee: межа базової ваги', () => {
+  it.each([
+    { weightKg: 4.99, expected: 50 },
+    { weightKg: 5, expected: 50 },
+    { weightKg: 5.01, expected: 60 },
+  ])(
+    'вага $weightKg кг тарифікується як $expected грн',
+    ({ weightKg, expected }) => {
+      expect(calcDeliveryFee(999, weightKg)).toBeCloseTo(expected, 2);
+    },
+  );
+});
