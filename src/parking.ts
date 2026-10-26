@@ -10,6 +10,14 @@ const DAILY_CAP = 200;
 const NIGHT_RATE = 0.5;
 const WEEKEND_RATE = 0.8;
 
+const round2 = (amount: number): number => Math.round(amount * 100) / 100;
+
+function assertValidDuration(minutes: number): void {
+  if (!Number.isInteger(minutes) || minutes < 0) {
+    throw new Error('INVALID_DURATION');
+  }
+}
+
 function calcBaseFee(minutes: number): number {
   if (minutes <= FREE_MINUTES) return 0;
   if (minutes <= 60) return FIRST_HOUR_FEE;
@@ -19,16 +27,17 @@ function calcBaseFee(minutes: number): number {
   return Math.min(fee, DAILY_CAP);
 }
 
+function applyRates(fee: number, options: ParkingOptions): number {
+  let result = fee;
+  if (options.night) result *= NIGHT_RATE;
+  if (options.weekend) result *= WEEKEND_RATE;
+  return result;
+}
+
 export function calcParkingFee(
   minutes: number,
   options: ParkingOptions = {},
 ): number {
-  if (!Number.isInteger(minutes) || minutes < 0) {
-    throw new Error('INVALID_DURATION');
-  }
-
-  let fee = calcBaseFee(minutes);
-  if (options.night) fee *= NIGHT_RATE;
-  if (options.weekend) fee *= WEEKEND_RATE;
-  return fee;
+  assertValidDuration(minutes);
+  return round2(applyRates(calcBaseFee(minutes), options));
 }
