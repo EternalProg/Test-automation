@@ -52,3 +52,16 @@ describe('calcDeliveryFee: кожен розпочатий кілограм', ()
     expect(calcDeliveryFee(999, weightKg)).toBeCloseTo(expected, 2);
   });
 });
+
+describe('calcDeliveryFee: максимум звичайного тарифу', () => {
+  it.each([
+    { weightKg: 30, expected: 300 },
+    { weightKg: 30.01, expected: 300 },
+    { weightKg: 40, expected: 300 },
+  ])(
+    'обмежує тариф для ваги $weightKg кг до $expected грн',
+    ({ weightKg, expected }) => {
+      expect(calcDeliveryFee(999, weightKg)).toBeCloseTo(expected, 2);
+    },
+  );
+});
