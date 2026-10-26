@@ -32,3 +32,16 @@ describe('calcParkingFee: розпочаті додаткові години', (
     },
   );
 });
+
+describe('calcParkingFee: добове обмеження', () => {
+  it.each([
+    { minutes: 540, expected: 190 },
+    { minutes: 600, expected: 200 },
+    { minutes: 1440, expected: 200 },
+  ])(
+    'обмежує плату для $minutes хвилин до $expected грн',
+    ({ minutes, expected }) => {
+      expect(calcParkingFee(minutes)).toBe(expected);
+    },
+  );
+});
