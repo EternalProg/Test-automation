@@ -7,6 +7,7 @@ const FREE_MINUTES = 15;
 const FIRST_HOUR_FEE = 30;
 const EXTRA_HOUR_FEE = 20;
 const DAILY_CAP = 200;
+const NIGHT_RATE = 0.5;
 
 function calcBaseFee(minutes: number): number {
   if (minutes <= FREE_MINUTES) return 0;
@@ -19,11 +20,12 @@ function calcBaseFee(minutes: number): number {
 
 export function calcParkingFee(
   minutes: number,
-  _options: ParkingOptions = {},
+  options: ParkingOptions = {},
 ): number {
   if (!Number.isInteger(minutes) || minutes < 0) {
     throw new Error('INVALID_DURATION');
   }
 
-  return calcBaseFee(minutes);
+  const fee = calcBaseFee(minutes);
+  return options.night ? fee * NIGHT_RATE : fee;
 }
