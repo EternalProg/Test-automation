@@ -65,3 +65,19 @@ describe('calcDeliveryFee: максимум звичайного тарифу', 
     },
   );
 });
+
+describe('calcDeliveryFee: експрес-доставка', () => {
+  it.each([
+    { orderTotal: 999, weightKg: 2, expected: 100 },
+    { orderTotal: 999, weightKg: 30.01, expected: 600 },
+    { orderTotal: 1000, weightKg: 10, expected: 0 },
+  ])(
+    'замовлення $orderTotal грн, вага $weightKg кг → $expected грн',
+    ({ orderTotal, weightKg, expected }) => {
+      expect(calcDeliveryFee(orderTotal, weightKg, true)).toBeCloseTo(
+        expected,
+        2,
+      );
+    },
+  );
+});
