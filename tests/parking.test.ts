@@ -18,3 +18,17 @@ describe('calcParkingFee: перша година', () => {
     expect(calcParkingFee(minutes)).toBe(30);
   });
 });
+
+describe('calcParkingFee: розпочаті додаткові години', () => {
+  it.each([
+    { minutes: 61, expected: 50 },
+    { minutes: 120, expected: 50 },
+    { minutes: 121, expected: 70 },
+    { minutes: 180, expected: 70 },
+  ])(
+    'тривалість $minutes хвилин коштує $expected грн',
+    ({ minutes, expected }) => {
+      expect(calcParkingFee(minutes)).toBe(expected);
+    },
+  );
+});
