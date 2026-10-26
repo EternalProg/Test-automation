@@ -45,3 +45,16 @@ describe('calcParkingFee: добове обмеження', () => {
     },
   );
 });
+
+describe('calcParkingFee: нічний тариф', () => {
+  it.each([
+    { minutes: 60, expected: 15 },
+    { minutes: 121, expected: 35 },
+    { minutes: 600, expected: 100 },
+  ])(
+    'зменшує тариф за $minutes хвилин до $expected грн',
+    ({ minutes, expected }) => {
+      expect(calcParkingFee(minutes, { night: true })).toBeCloseTo(expected, 2);
+    },
+  );
+});
