@@ -58,3 +58,12 @@ describe('calcParkingFee: нічний тариф', () => {
     },
   );
 });
+
+describe('calcParkingFee: вихідний тариф', () => {
+  it.each([
+    { options: { weekend: true }, expected: 160 },
+    { options: { night: true, weekend: true }, expected: 80 },
+  ])('застосовує вихідну знижку до $expected грн', ({ options, expected }) => {
+    expect(calcParkingFee(600, options)).toBeCloseTo(expected, 2);
+  });
+});
