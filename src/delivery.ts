@@ -13,5 +13,6 @@ export function calcDeliveryFee(
   }
 
   if (orderTotal >= 1000) return 0;
-  return weightKg > 5 ? 60 : 50;
+  const extraKg = Math.ceil(Math.max(0, weightKg - 5));
+  return 50 + extraKg * 10;
 }
